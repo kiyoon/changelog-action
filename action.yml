@@ -1,52 +1,58 @@
-name: 'Changelog from Conventional Commits'
-description: 'Generate and update the CHANGELOG from conventional commits since latest tag or from a given tag range'
-author: Nicolas Giard
+name: 'CHANGELOG.md from Conventional Commits'
+description: 'Generate and update the CHANGELOG from conventional commits'
+author: Kiyoon Kim
 inputs:
   token:
     description: GitHub Token
+    required: false
+    default: ${{ github.token }}
+  new-version-tag-for-future:
+    description: What to show in the changelog for the new version (e.g. v1.0.0). Note that the tag doesn't have to exist now but it should be created later for the comparison link to work.
     required: true
-  tag:
-    description: The latest tag (which triggered this job) (only if using latest tag)
+  new-version-ref:
+    description: The commit hash to which the changelog is to be determined. Defaults to the current commit of the action run.
     required: false
-  fromTag:
-    description: The tag from which the changelog is to be determined (only if using tag range)
+    default: ${{ github.sha }}
+  previous-version-tag:
+    description: The tag from which the changelog is to be determined. The tag must exist already. If not provided, automatically determine the previous version or it starts from the initial commit.
     required: false
-  toTag:
-    description: The tag up to which the changelog is to be determined (only if using tag range)
+  tag-prefix:
+    description: The prefix to use for the tag (e.g. "v"). Used when previous-version-tag is not provided and it needs to be determined.
     required: false
-  excludeTypes:
+    default: ''
+  exclude-types:
     description: Types to exclude from the Changelog
     required: false
     default: build,docs,other,style
-  excludeScopes:
+  exclude-scopes:
     description: Scopes to exclude from the Changelog
     required: false
     default: ''
-  restrictToTypes:
+  restrict-to-types:
     description: Types to restrict to for the Changelog (overrides excludeTypes if defined)
     required: false
     default: ''
-  writeToFile:
+  write-to-file:
     description: Should CHANGELOG.md be updated with latest changelog
     required: false
-    default: 'true'
-  changelogFilePath:
+    default: 'false'
+  changelog-file-path:
     description: Path to the changelog file
     required: false
     default: 'CHANGELOG.md'
-  includeRefIssues:
+  include-ref-issues:
     description: Should the changelog include the issues referenced for each PR.
     required: false
     default: 'true'
-  useGitmojis:
+  use-gitmojis:
     description: Prepend type headers with their corresponding gitmoji
     required: false
     default: 'true'
-  includeInvalidCommits:
+  include-invalid-commits:
     description: Whether to include commits that don't respect the Conventional Commits format
     required: false
     default: 'false'
-  reverseOrder:
+  reverse-order:
     description: List commits in reverse order (from newer to older) instead of the default (older to newer).
     required: false
     default: 'false'
