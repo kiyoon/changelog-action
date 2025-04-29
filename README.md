@@ -131,7 +131,7 @@ jobs:
 
       - name: Parse CHANGELOG.md to get release notes
         id: parse_changelog
-        uses: kiyoon/parse-changelog@v1
+        uses: kiyoon/parse-changelog-action@v1
         with:
           changelog-path: CHANGELOG.md
           version: ${{ steps.parse_commit.outputs.RELEASE_VERSION }}
