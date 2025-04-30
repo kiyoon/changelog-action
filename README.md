@@ -92,58 +92,8 @@ jobs:
 
 ### 2. When the release PR is merged, create a Release
 
-To be more specific, the below example runs when CHANGELOG.md file is changed and with a commit message following `chore: release vX.X.X` format.
+Follow the example in [kiyoon/parse-changelog-action](https://github.com/kiyoon/parse-changelog-action). It runs when CHANGELOG.md file is changed and with a commit message following `chore: release vX.X.X` format.
 
-```yaml
-name: Auto-release following a release commit
-
-on:
-  push:
-    branches:
-      - main
-      - master
-    paths:
-      - 'CHANGELOG.md'
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Parse commit message to get version
-        id: parse_commit
-        run: |
-          # Commit message must be in the format of
-          # "chore: release vX.X"
-          VERSION=$(echo "$COMMIT_MESSAGE" | grep -oP '^chore:\ release\ v[a-zA-Z0-9.\-\+]+' | head -n 1 | cut -d' ' -f3)
-          if [[ -z "$VERSION" ]]; then
-            echo "Commit message does not match the expected format. Please use 'chore: release vX.X.X' format in your commit message."
-            echo "Commit message: $COMMIT_MESSAGE"
-            exit 1
-          fi
-          echo "RELEASE_VERSION=$VERSION" >> "$GITHUB_OUTPUT"
-
-        env:
-          # Avoid script injection by using an environment variable
-          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-
-      - name: Parse CHANGELOG.md to get release notes
-        id: parse_changelog
-        uses: kiyoon/parse-changelog-action@v1
-        with:
-          changelog-path: CHANGELOG.md
-          version: ${{ steps.parse_commit.outputs.RELEASE_VERSION }}
-
-      - name: Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.parse_commit.outputs.RELEASE_VERSION }}
-          name: ${{ steps.parse_commit.outputs.RELEASE_VERSION }}
-          body: ${{ steps.parse_changelog.outputs.body }}
-```
 
 ## Inputs
 
