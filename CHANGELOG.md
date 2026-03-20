@@ -7,9 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v2.0.1] - 2026-03-20
 ### :wrench: Chores
 - [`b53c9d5`](https://github.com/kiyoon/changelog-action/commit/b53c9d5c0fffd4b95e35538e778695837d2316fa) - node24 *(commit by [@kiyoon](https://github.com/kiyoon))*
-- [`cd4be18`](https://github.com/kiyoon/changelog-action/commit/cd4be1889ba8d0917fac35e0261a40efa677cadb) - release v2.0.1 *(PR [#2](https://github.com/kiyoon/changelog-action/pull/2) by [@github-actions[bot]](https://github.com/apps/github-actions))*
-- [`fe4abc4`](https://github.com/kiyoon/changelog-action/commit/fe4abc4dfad9d9744492fb8eca1f6238e84fb322) - wrong CHANGELOG *(commit by [@kiyoon](https://github.com/kiyoon))*
-
 
 ## [v2.0.0] - 2025-04-29
 ### :sparkles: New Features
