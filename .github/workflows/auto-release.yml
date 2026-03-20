@@ -36,7 +36,7 @@ jobs:
         id: parse_changelog
         uses: kiyoon/parse-changelog-action@v1
         with:
-          changelog-path: CHANGELOG.md
+          changelog-file-path: CHANGELOG.md
           version: ${{ steps.parse_commit.outputs.RELEASE_VERSION }}
 
       - name: Create Release
