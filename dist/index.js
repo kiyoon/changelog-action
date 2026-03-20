@@ -26589,9 +26589,9 @@ var import_strict = __toESM(require("node:assert/strict"));
 var import_node_fs = __toESM(require("node:fs"));
 var import_node_process = __toESM(require("node:process"));
 var import_promises = require("node:timers/promises");
-var core = __toESM(require_core());
-var github = __toESM(require_github());
-var import_parser = __toESM(require_parser2());
+var core = __toESM(require_core(), 1);
+var github = __toESM(require_github(), 1);
+var import_parser = __toESM(require_parser2(), 1);
 
 // src/utils/github.ts
 async function getAllTags({
@@ -26756,7 +26756,7 @@ async function getCommitsBetweenRefs({
 }
 
 // src/utils/semver.ts
-var import_semver = __toESM(require_semver2());
+var import_semver = __toESM(require_semver2(), 1);
 function cleanAndFilterVersions(tags, prefix = "v") {
   return tags.map((tag) => tag.startsWith(prefix) ? tag.slice(prefix.length) : tag).map((candidate) => import_semver.default.parse(candidate)).filter((parsed) => parsed !== null).map((p) => {
     const core = `${p.major}.${p.minor}.${p.patch}`;

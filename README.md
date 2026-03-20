@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get CHANGELOG
         id: changelog
@@ -79,7 +79,7 @@ jobs:
 
       - name: Create PR
         if: ${{ github.event.inputs.dry-run == 'false' }}
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: 'chore: release ${{ github.event.inputs.version-tag }}'
           title: 'chore: release ${{ github.event.inputs.version-tag }}'
