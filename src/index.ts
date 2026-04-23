@@ -1,5 +1,6 @@
 import assert from "node:assert/strict"
 import fs from "node:fs"
+import path from "node:path"
 import process from "node:process"
 import { setTimeout } from "node:timers/promises"
 import * as core from "@actions/core"
@@ -509,6 +510,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
   // WRITE CHANGELOG TO FILE
 
+  await fs.promises.mkdir(path.dirname(changelogFilePath), { recursive: true })
   await fs.promises.writeFile(changelogFilePath, output)
 }
 

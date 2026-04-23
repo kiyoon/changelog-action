@@ -3,15 +3,29 @@ var __getProtoOf = Object.getPrototypeOf;
 var __defProp = Object.defineProperty;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+function __accessProp(key) {
+  return this[key];
+}
+var __toESMCache_node;
+var __toESMCache_esm;
 var __toESM = (mod, isNodeMode, target) => {
+  var canCache = mod != null && typeof mod === "object";
+  if (canCache) {
+    var cache = isNodeMode ? __toESMCache_node ??= new WeakMap : __toESMCache_esm ??= new WeakMap;
+    var cached = cache.get(mod);
+    if (cached)
+      return cached;
+  }
   target = mod != null ? __create(__getProtoOf(mod)) : {};
   const to = isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target;
   for (let key of __getOwnPropNames(mod))
     if (!__hasOwnProp.call(to, key))
       __defProp(to, key, {
-        get: () => mod[key],
+        get: __accessProp.bind(mod, key),
         enumerable: true
       });
+  if (canCache)
+    cache.set(mod, to);
   return to;
 };
 var __commonJS = (cb, mod) => () => (mod || cb((mod = { exports: {} }).exports, mod), mod.exports);
@@ -3438,7 +3452,7 @@ var require_constants2 = __commonJS((exports2, module2) => {
     }
   })();
   var channel;
-  var structuredClone = globalThis.structuredClone ?? function structuredClone(value, options = undefined) {
+  var structuredClone = globalThis.structuredClone ?? function structuredClone2(value, options = undefined) {
     if (arguments.length === 0) {
       throw new TypeError("missing argument");
     }
@@ -21982,12 +21996,12 @@ var require_lib3 = __commonJS((exports2, module2) => {
   AbortError.prototype.name = "AbortError";
   var URL$1 = Url.URL || whatwgUrl.URL;
   var PassThrough$1 = Stream.PassThrough;
-  var isDomainOrSubdomain = function isDomainOrSubdomain(destination, original) {
+  var isDomainOrSubdomain = function isDomainOrSubdomain2(destination, original) {
     const orig = new URL$1(original).hostname;
     const dest = new URL$1(destination).hostname;
     return orig === dest || orig[orig.length - dest.length - 1] === "." && orig.endsWith(dest);
   };
-  var isSameProtocol = function isSameProtocol(destination, original) {
+  var isSameProtocol = function isSameProtocol2(destination, original) {
     const orig = new URL$1(original).protocol;
     const dest = new URL$1(destination).protocol;
     return orig === dest;
@@ -22003,7 +22017,7 @@ var require_lib3 = __commonJS((exports2, module2) => {
       const send = (options.protocol === "https:" ? https : http).request;
       const signal = request.signal;
       let response = null;
-      const abort = function abort() {
+      const abort = function abort2() {
         let error = new AbortError("The user aborted a request.");
         reject(error);
         if (request.body && request.body instanceof Stream.Readable) {
@@ -22017,7 +22031,7 @@ var require_lib3 = __commonJS((exports2, module2) => {
         abort();
         return;
       }
-      const abortAndFinalize = function abortAndFinalize() {
+      const abortAndFinalize = function abortAndFinalize2() {
         abort();
         finalize();
       };
@@ -22651,7 +22665,7 @@ var require_dist_node7 = __commonJS((exports2) => {
     endpoint.headers.authorization = withAuthorizationPrefix(token);
     return request(endpoint);
   }
-  var createTokenAuth = function createTokenAuth(token) {
+  var createTokenAuth = function createTokenAuth2(token) {
     if (!token) {
       throw new Error("[@octokit/auth-token] No token passed to createTokenAuth");
     }
@@ -26587,6 +26601,7 @@ var require_semver2 = __commonJS((exports2, module2) => {
 // src/index.ts
 var import_strict = __toESM(require("node:assert/strict"));
 var import_node_fs = __toESM(require("node:fs"));
+var import_node_path = __toESM(require("node:path"));
 var import_node_process = __toESM(require("node:process"));
 var import_promises = require("node:timers/promises");
 var core = __toESM(require_core(), 1);
@@ -27161,6 +27176,7 @@ ${lines.slice(firstVersionLine).join(`
   }
   output += `[${newVersionTagForFuture}]: ${githubServerUrl}/${owner}/${repo}/compare/${previousVersionRef}...${newVersionTagForFuture}
 `;
+  await import_node_fs.default.promises.mkdir(import_node_path.default.dirname(changelogFilePath), { recursive: true });
   await import_node_fs.default.promises.writeFile(changelogFilePath, output);
 }
 main();
